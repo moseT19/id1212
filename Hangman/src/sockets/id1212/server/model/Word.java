@@ -1,4 +1,4 @@
-package sockets.id1212.server.model;
+package src.sockets.id1212.server.model;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,6 +11,9 @@ public class Word{
     private BufferedReader br;
     private File file = new File("C:\\Users\\jocke\\Hangman\\src\\sockets\\id1212\\extra\\words.txt");
 
+    /**
+     * initiates the list of words by reading the file words.txt
+     */
     public Word(){
         try {
 
@@ -28,6 +31,10 @@ public class Word{
         }
     }
 
+    /**
+     * generates the word used in the hangman game.
+     * @return returns a random word from the wordlist
+     */
     public String getRandWord(){
         int randomNum = ThreadLocalRandom.current().nextInt(0, wordlist.size() + 1);
         this.theWord  = wordlist.get(randomNum);

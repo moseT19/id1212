@@ -1,4 +1,4 @@
-package sockets.id1212.client.view;
+package src.sockets.id1212.client.view;
 
 public enum Command {
 

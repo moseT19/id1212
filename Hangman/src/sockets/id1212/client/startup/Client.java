@@ -1,6 +1,6 @@
-package sockets.id1212.client.startup;
+package src.sockets.id1212.client.startup;
 
-import sockets.id1212.client.view.NonBlockingInterpreter;
+import src.sockets.id1212.client.view.NonBlockingInterpreter;
 
 public class Client {
 

@@ -1,6 +1,6 @@
-package sockets.id1212.client.net;
+package src.sockets.id1212.client.net;
 
-import sockets.id1212.server.model.HMGame;
+
 
 import java.util.ArrayList;
 

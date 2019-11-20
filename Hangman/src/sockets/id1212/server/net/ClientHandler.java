@@ -1,12 +1,13 @@
-package sockets.id1212.server.net;
-import sockets.id1212.common.Guess;
-import sockets.id1212.server.model.HMGame;
+package src.sockets.id1212.server.net;
+import src.sockets.id1212.common.Guess;
+import src.sockets.id1212.server.model.HMGame;
 
 import java.io.*;
 
 import java.net.*;
+import java.nio.channels.SocketChannel;
 import java.util.*;
-import sockets.id1212.server.controller.Controller;
+import src.sockets.id1212.server.controller.Controller;
 
 
 
@@ -14,15 +15,17 @@ import sockets.id1212.server.controller.Controller;
 public class ClientHandler implements Runnable {
 
     private final HMServer server;
-    private final Socket clientSocket;
-    private  ObjectInputStream fromClient;
-    private PrintWriter toClient;
-    private  HMGame gameIteration;
+    private final SocketChannel clientSocket;
+    //private  ObjectInputStream fromClient;
+    //private PrintWriter toClient;
+    //private  HMGame gameIteration;
+    private final SessionId
     private boolean connected;
     private final Controller controller;
     private int currentScore;
 
-    ClientHandler(HMServer server, Socket clientSocket, Controller controller){
+
+    ClientHandler(HMServer server, SocketChannel clientSocket, Controller controller){
         this.server = server;
         this.clientSocket = clientSocket;
         this.controller = controller;
@@ -32,6 +35,12 @@ public class ClientHandler implements Runnable {
 
     }
 
+
+    /**
+     * The Clienthandler run() is responsible for establishing the server side connection between client and server.
+     * The first try clause establishes the connection with our streams.
+     * The second try clause recieves information from client and acts accordingly and vice versa.
+     */
     @Override
     public void run() {
 

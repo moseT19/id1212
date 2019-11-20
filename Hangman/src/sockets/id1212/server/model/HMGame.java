@@ -1,4 +1,4 @@
-package sockets.id1212.server.model;
+package src.sockets.id1212.server.model;
 
 import java.io.*;
 import java.util.*;
@@ -34,6 +34,11 @@ public class HMGame implements Serializable{
         this.currentScore = 0;
     }*/
 
+    /**
+     * Constructor for a game.
+     * @param word the hidden word for the game
+     * @param score the clients score transferred to a new game instance.
+     */
     public HMGame(String word, int score){
 
 
@@ -52,18 +57,10 @@ public class HMGame implements Serializable{
         this.currentScore = score;
     }
 
-    /*public static void main(String[] args) {
-        HMGame game = new HMGame();
-    }*/
-
-    private void endGame(){
-
-    }
-
-    /*public int getRemaingTries(){
-        return remainingTries;
-    }*/
-
+    /**
+     * checks if the game is won
+     * @return returns true if won, false if not yet won.
+     */
     private boolean gameWon(){
         boolean status = false;
         if(guessedLetters.equals(correctLetters)){
@@ -74,6 +71,10 @@ public class HMGame implements Serializable{
         return status;
     }
 
+    /**
+     * checks if a clients guess of a character is correct, depending on result updates information regarding the game.
+     * @param c the guessed character.
+     */
     public void guessChar(Character c){
         if(!victory) {
             if(!wrongGuesses.contains(c)) {
@@ -97,6 +98,11 @@ public class HMGame implements Serializable{
         }
 
     }
+
+    /**
+     * checks if a guessed word is the same as the hidden word, depending on result updates information regarding the game.
+     * @param guessedWord the word guessed by the client.
+     */
     public void guessWord(String guessedWord) {
         if(!victory) {
             boolean correct = false;
@@ -117,6 +123,11 @@ public class HMGame implements Serializable{
         return currentScore;
     }
 
+
+    /**
+     * prints the current state of this game.
+     * @return returns a string containing information needed to present the current state of the game.
+     */
     @Override
     public String toString(){
         if(!victory) {

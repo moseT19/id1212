@@ -1,4 +1,4 @@
-package sockets.id1212.client.net;
+package src.sockets.id1212.client.net;
 
 
 import java.io.*;
@@ -7,7 +7,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import sockets.id1212.common.Guess;
+import src.sockets.id1212.common.Guess;
 
 
 public class ServerConnection {
@@ -19,6 +19,14 @@ public class ServerConnection {
     private  ObjectOutputStream toServer;
     private volatile boolean connected;
 
+
+    /**
+     * Connect is a function for establishing a connection with the server.
+     * @param host the ip address of desired server.
+     * @param port the port of said server.
+     * @param gameHandler a handler that handles information from server and makes it appropriate for the client interface.
+     * @throws IOException
+     */
     public void connect(String host, int port, OutputHandler gameHandler)throws IOException {
 
         socket = new Socket();
@@ -32,7 +40,10 @@ public class ServerConnection {
         new Thread(new Listener(gameHandler)).start();
     }
 
-    public void startNewGame(){
+    /**
+     * a function for signalling the server that the client wishes to start a new game.
+     */
+    public void startNewGame() throws IOException{
         try{
             toServer.writeObject(new Guess("START"));
         }catch (IOException e){
@@ -40,12 +51,21 @@ public class ServerConnection {
         }
     }
 
+    /**
+     * a function for signalling the server that the client wishes to end the connection.
+     * @throws IOException
+     */
     public void disconnect() throws IOException {
         socket.close();
         socket = null;
         connected = false;
     }
 
+
+    /**
+     * signalls the server that the client wishes to make a guess
+     * @param g a parameter of the Guess instance which can either be a word or character.
+     */
     public void makeGuess(Guess g){
         try {
             toServer.writeObject(g);
@@ -79,6 +99,11 @@ public class ServerConnection {
             }
         }
 
+        /**
+         * Translates the game state from the server to strings appropriate for the client interface.
+         * @param fromServer the string retrieved from the server.
+         * @return returns arraylist containing the client "interface".
+         */
         private ArrayList<String> printGameState(String fromServer) {
             ArrayList<String> translate = new ArrayList<>();
             ArrayList<String> al = new ArrayList<>();

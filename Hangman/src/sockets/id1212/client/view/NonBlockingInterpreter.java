@@ -1,13 +1,13 @@
-package sockets.id1212.client.view;
+package src.sockets.id1212.client.view;
 import sockets.id1212.client.controller.Controller;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import sockets.id1212.client.view.ThreadSafePrint;
-import sockets.id1212.client.net.OutputHandler;
-import sockets.id1212.client.view.Command;
-import sockets.id1212.common.Guess;
-import sockets.id1212.server.model.HMGame;
+import src.sockets.id1212.client.view.ThreadSafePrint;
+import src.sockets.id1212.client.net.OutputHandler;
+import src.sockets.id1212.client.view.Command;
+import src.sockets.id1212.common.Guess;
+import src.sockets.id1212.server.model.HMGame;
 
 import javax.xml.bind.SchemaOutputResolver;
 
@@ -21,6 +21,9 @@ public class NonBlockingInterpreter implements Runnable {
     private ArrayList<String> incLine = new ArrayList<String>();
     private Guess g;
 
+    /**
+     * Initiates a thread for the client and initiates the controller.
+     */
     public void start(){
         if(receivingCmds)
             return;
@@ -28,7 +31,11 @@ public class NonBlockingInterpreter implements Runnable {
         contr = new Controller();
         new Thread(this).start();
     }
-    
+
+    /**
+     * The client thread waits for commands written by the client to performed desired action.
+     * Depending on the commands we the client can connect to the server, quit the process or make guesses towards the game depending on status.
+     */
     @Override
     public void run(){
 
@@ -70,6 +77,9 @@ public class NonBlockingInterpreter implements Runnable {
         }
     }
 
+    /**
+     * handles the output recieved from the server to make it appropriate for the client interface.
+     */
     private class ConsoleOutput implements OutputHandler {
         @Override
         public void handleMsg(String msg) {
@@ -79,40 +89,6 @@ public class NonBlockingInterpreter implements Runnable {
 
         @Override
         public void showGameState(ArrayList<String> al) {
-            /*ArrayList<String> translate = new ArrayList<>();
-            for(String substring : o.split(" ")){
-                translate.add(substring);
-            }
-            if(translate.size() > 2 && Integer.parseInt(translate.get(2)) <= 0){
-                outMsg.println("You've been hanged boi! ");
-                outMsg.println("If you would like to start a new game write 'START'");
-            }
-            else if(translate.get(0).equals("victory")){
-                outMsg.println("You won the game!");
-                outMsg.println("Current score: "+translate.get(1));
-                outMsg.println("If you want to play another game write START");
-            }
-            else {
-                outMsg.print("Your word:");
-                for (int i = 0; i < translate.get(0).length(); i++) {
-                    outMsg.print(translate.get(0).charAt(i) + " ");
-                }
-
-                if (!translate.get(1).equals("0")) {
-                    outMsg.println("");
-                    outMsg.print("Wrong guesses:");
-                    for (int i = 0; i < translate.get(1).length(); i++) {
-                        outMsg.print(translate.get(1).charAt(i) + " ");
-                    }
-                }
-                outMsg.println("");
-                outMsg.println("Remaining tries: " + translate.get(2));
-                outMsg.println("");
-                outMsg.println("Current score: " + translate.get(3));
-                //outMsg.println(o);
-                //outMsg.println(o.toString());
-                //outMsg.print(PROMPT);
-                */
 
                 for(String s : al){
                     outMsg.println(s);

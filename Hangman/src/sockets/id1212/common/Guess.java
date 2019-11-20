@@ -1,7 +1,11 @@
-package sockets.id1212.common;
+package src.sockets.id1212.common;
 
 import java.io.Serializable;
 
+/**
+ * A class for the guesses in the hangman game, each guess is either a character (letter) or a string (word)
+ * includes appropriate getters for information retrieval.
+ */
 public class Guess implements Serializable{
 
     private Character guessedChar = null;
